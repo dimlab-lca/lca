@@ -34,11 +34,10 @@ ADMIN_USERS = {
     'editor': os.environ.get('EDITOR_PASSWORD', 'editor123')
 }
 
-# Gestion des URLs pour production
+# Force HTTPS in production
 @app.before_request
-def force_subdirectory():
-    """Ensure all URLs work correctly with subdirectory"""
-    # En production, s'assurer que les URLs sont correctes
+def force_https():
+    """Force HTTPS in production environment"""
     if not app.config['DEBUG']:
         # Force HTTPS en production
         if not request.is_secure and request.headers.get('X-Forwarded-Proto') != 'https':
