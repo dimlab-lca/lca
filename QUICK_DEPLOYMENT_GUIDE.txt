@@ -1,0 +1,146 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                    LCA TV - QUICK DEPLOYMENT GUIDE                       ║
+║                         Fix 404 Errors on All Pages                      ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+🎯 PROBLEM FIXED: Home page worked, but all other pages showed 404 errors
+
+✅ SOLUTION: Updated configuration for root domain deployment (lca-tv.bf)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 STEP-BY-STEP DEPLOYMENT TO cPANEL
+
+STEP 1: Upload These 5 Files to Your /lca Folder
+   ✓ passenger_wsgi.py
+   ✓ app.py
+   ✓ .htaccess
+   ✓ templates/404.html
+   ✓ templates/500.html
+
+STEP 2: Set File Permissions in cPanel File Manager
+   • Right-click each file → Change Permissions
+   • passenger_wsgi.py → 644
+   • app.py → 644
+   • .htaccess → 644
+   • templates folder → 755
+   • templates/*.html → 644
+
+STEP 3: Restart Your Python Application
+   Option A: Using cPanel Python App Interface
+      1. Go to: cPanel → Software → Setup Python App
+      2. Find your LCA TV application
+      3. Click "Restart" button
+   
+   Option B: Using File Manager
+      1. Find passenger_wsgi.py
+      2. Right-click → Touch (updates timestamp)
+      3. This triggers automatic restart
+
+STEP 4: Test Your Website
+   Open your browser and visit:
+   ✓ https://lca-tv.bf/          (Home page)
+   ✓ https://lca-tv.bf/videos    (Should work now!)
+   ✓ https://lca-tv.bf/live      (Should work now!)
+   ✓ https://lca-tv.bf/about     (Should work now!)
+   ✓ https://lca-tv.bf/login     (Should work now!)
+
+STEP 5: Clear Browser Cache
+   • Windows/Linux: Press Ctrl + Shift + R
+   • Mac: Press Cmd + Shift + R
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 WHAT WAS CHANGED
+
+1. passenger_wsgi.py
+   Changed: Now loads Flask app directly instead of run.py
+   Why: Passenger needs the 'application' object from app.py
+
+2. app.py
+   Changed: APPLICATION_ROOT from '/lca' to '/'
+   Why: Your domain points to /lca folder, so app runs at root level
+
+3. .htaccess
+   Changed: Removed all /lca prefix references
+   Why: No subdirectory needed when domain points to folder directly
+
+4. Error Pages (404.html, 500.html)
+   Changed: Links from /lca/page to /page
+   Why: Remove hardcoded subdirectory paths
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🆘 TROUBLESHOOTING
+
+If pages still show 404:
+   → Check .htaccess is uploaded to /lca folder
+   → Check file permissions (644 for files, 755 for directories)
+   → Clear browser cache completely
+   → Restart application again
+
+If you see "Internal Server Error":
+   → Check Python version is 3.9 or higher
+   → Install dependencies: pip install -r requirements.txt
+   → Check cPanel error logs: Metrics → Errors
+
+If CSS/images don't load:
+   → Check /static folder has 755 permissions
+   → Check static files have 644 permissions
+   → Clear browser cache
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ VERIFICATION CHECKLIST
+
+After deployment, verify:
+   □ Home page loads
+   □ Videos page shows video list
+   □ Live stream page accessible
+   □ About page displays
+   □ Contact page displays
+   □ Login page accessible
+   □ Navigation menu works
+   □ CSS styles load correctly
+   □ Images display correctly
+   □ HTTPS redirects from HTTP
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 YOUR CONFIGURATION
+
+Domain:              lca-tv.bf
+Hosting:             cPanel with Passenger WSGI
+Folder:              /lca (in your home directory)
+Deployment Type:     Root domain (not subdirectory)
+Python Version:      3.9+
+
+All URLs work at root level:
+   Home:     https://lca-tv.bf/
+   Videos:   https://lca-tv.bf/videos
+   Live:     https://lca-tv.bf/live
+   Login:    https://lca-tv.bf/login
+
+Admin Login Credentials:
+   Username: admin
+   Password: lcatv2024
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 MORE HELP
+
+Detailed Instructions:  See DEPLOYMENT_FIX_INSTRUCTIONS.md
+Technical Summary:      See FIX_SUMMARY.md
+Test Results:           Run: python test_routes_fixed.py
+
+Debug URL (if needed):  https://lca-tv.bf/debug
+Health Check:           https://lca-tv.bf/health
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 THAT'S IT! Your LCA TV website should now work perfectly!
+
+If you still have issues after following these steps, check the error logs
+in cPanel or contact your hosting provider's support.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
