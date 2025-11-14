@@ -1,42 +1,48 @@
-# .htaccess pour LCA TV - Configuration Production
-# Configuration pour sous-répertoire /lca sur PlanetHoster
+# .htaccess for LCA TV - Root Domain Configuration
+# Domain: lca-tv.bf points to /lca folder
+# All routes work at root level (no /lca prefix needed)
 
 RewriteEngine On
 
-# Force HTTPS en production
+# Force HTTPS in production
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} !^localhost
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# Redirection vers l'application Flask
+# Route all non-static requests to the Flask application via Passenger
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !^/lca/static/
+RewriteCond %{REQUEST_URI} !^/static/
 RewriteRule ^(.*)$ passenger_wsgi.py/$1 [QSA,L]
 
-# Configuration pour les fichiers statiques
+# Configuration for static files (CSS, JS, images)
 <FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$">
     ExpiresActive On
     ExpiresDefault "access plus 1 month"
     Header set Cache-Control "public, immutable"
 </FilesMatch>
 
-# Configuration pour les fichiers Python
+# Configuration for Python files - use Passenger
 <FilesMatch "\.py$">
     SetHandler passenger-python
 </FilesMatch>
 
-# Sécurité - Cacher les fichiers sensibles
-<FilesMatch "\.(env|log|db|sqlite|bak)$">
+# Security - Hide sensitive files
+<FilesMatch "\.(env|log|db|sqlite|bak|pyc)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
-# Configuration des erreurs personnalisées
-ErrorDocument 404 /lca/404.html
-ErrorDocument 500 /lca/500.html
+# Custom error pages
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
 
-# Configuration MIME types
+# MIME types
 AddType application/javascript .js
 AddType text/css .css
 AddType image/svg+xml .svg
+
+# Compression for better performance
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
