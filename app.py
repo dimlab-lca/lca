@@ -15,10 +15,11 @@ import time
 
 app = Flask(__name__)
 
-# Configuration pour production avec sous-répertoire
+# Configuration pour production (root domain deployment)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'lcatv-secret-key')
 app.config['DEBUG'] = os.environ.get('FLASK_ENV') == 'development'
-app.config['APPLICATION_ROOT'] = '/lca'
+# APPLICATION_ROOT should be '/' for root domain deployment
+app.config['APPLICATION_ROOT'] = '/'
 app.config['PREFERRED_URL_SCHEME'] = 'https'
 
 # YouTube API Configuration
