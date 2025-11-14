@@ -1,0 +1,53 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║            FILES TO UPLOAD TO FIX 404 ERRORS - LCA TV                ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+Upload these files to your cPanel /lca folder:
+
+📁 ROOT LEVEL FILES (/lca folder):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ passenger_wsgi.py          [CRITICAL - MUST UPLOAD]
+✓ app.py                     [CRITICAL - MUST UPLOAD]
+✓ .htaccess                  [CRITICAL - MUST UPLOAD]
+
+📁 TEMPLATES FOLDER (/lca/templates/):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ templates/404.html         [IMPORTANT - UPLOAD]
+✓ templates/500.html         [IMPORTANT - UPLOAD]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  IMPORTANT NOTES:
+
+1. DO NOT rename passenger_wsgi.py - name must be exact
+2. Make sure .htaccess uploads correctly (it starts with a dot)
+3. Replace existing files when uploading
+4. After upload, set permissions:
+   - Files: 644
+   - Directories: 755
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 UPLOAD CHECKLIST:
+
+□ 1. Upload passenger_wsgi.py to /lca/
+□ 2. Upload app.py to /lca/
+□ 3. Upload .htaccess to /lca/
+□ 4. Upload 404.html to /lca/templates/
+□ 5. Upload 500.html to /lca/templates/
+□ 6. Set file permissions to 644
+□ 7. Set directory permissions to 755
+□ 8. Restart application (touch passenger_wsgi.py or use cPanel)
+□ 9. Test https://lca-tv.bf/videos
+□ 10. Clear browser cache
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ After uploading and restarting, ALL pages will work:
+   https://lca-tv.bf/videos
+   https://lca-tv.bf/live
+   https://lca-tv.bf/about
+   https://lca-tv.bf/contact
+   https://lca-tv.bf/login
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
